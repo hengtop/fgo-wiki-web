@@ -49,3 +49,9 @@ https://topzhang.cn/archives/169/
 stylelint 配置 我这里使用的 sass
 https://stylelint.io/user-guide/get-started
 https://beta.nextjs.org/docs/styling/sass
+
+## 坑
+
+next 自带的 lint 和 lint-staged 一起使用貌似有 bug
+会一直报如下错误  
+![image-20230108033427534](https://zhanghengtuchaung.oss-cn-chengdu.aliyuncs.com/img/image-20230108033427534.png)
