@@ -47,9 +47,10 @@
   },
   "lint-staged": {
     "**/*.scss": "yarn stylelint",
-    "**/*.{js,jsx,tsx,ts,less,json}": [
+    "**/*.{js,jsx,tsx,ts,json}": [
       "yarn prettier",
-      "yarn eslint"
+      "yarn eslint",
+      "git add ."
     ]
   },
   "config": {
