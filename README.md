@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## fgo-wiki-web
+
+这是一个 next 的练手项目
+
+## 项目配置
+
+配置各种工作流
+https://topzhang.cn/archives/169/
+注意 eslint 和 prettier 的冲突
+.editorconfig 编辑器规范
+
+stylelint 配置 我这里使用的 sass
+https://stylelint.io/user-guide/get-started
+https://beta.nextjs.org/docs/styling/sass

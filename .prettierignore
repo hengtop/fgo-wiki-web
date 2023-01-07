@@ -1,0 +1,19 @@
+# Ignore artifacts:
+build
+coverage
+
+/dist/*
+.local
+.output.js
+/node_modules/**
+
+**/*.svg
+**/*.sh
+**/*.next
+**/*.vscode
+
+/public/*
+
+.stylelintrc
+
+package.json
