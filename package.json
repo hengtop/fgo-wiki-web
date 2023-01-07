@@ -47,6 +47,7 @@
   "lint-staged": {
     "**/*.scss": "yarn stylelint",
     "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "yarn lint:fix",
       "yarn prettier",
       "git add ."
     ]

@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 import indxStyles from '../styles/index.module.scss'
 
 const inter = Inter({ subsets: ['latin'] })
-
+console.log('1')
 export default function Home() {
   return (
     <>
