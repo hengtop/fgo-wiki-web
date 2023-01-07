@@ -11,7 +11,8 @@
     "stylelint": "stylelint **/*.scss",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "commit": "cz"
+    "commit": "cz",
+    "eslint": "eslint --fix ./**/*.{tsx,ts,js,jsx}"
   },
   "dependencies": {
     "@next/font": "13.1.1",
@@ -47,8 +48,8 @@
   "lint-staged": {
     "**/*.scss": "yarn stylelint",
     "**/*.{js,jsx,tsx,ts,less,md,json}": [
-      "yarn lint:fix",
       "yarn prettier",
+      "yarn eslint",
       "git add ."
     ]
   },
