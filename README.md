@@ -41,10 +41,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## 项目配置
 
-配置各种工作流
+### 配置各种工作流
+
+### eslint 和 prettier
+
 https://topzhang.cn/archives/169/
 注意 eslint 和 prettier 的冲突
 .editorconfig 编辑器规范
+
+### stylelint 配置
 
 stylelint 配置 我这里使用的 sass
 https://stylelint.io/user-guide/get-started

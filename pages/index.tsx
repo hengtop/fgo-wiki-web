@@ -1,11 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
-import indxStyles from '../styles/index.module.scss'
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from '@next/font/google';
+import styles from '../styles/Home.module.css';
+import indxStyles from '../styles/index.module.scss';
 
-const inter = Inter({ subsets: ['latin'] })
-console.log('1')
+const inter = Inter({ subsets: ['latin'] });
+console.log('1');
+const a = {
+  a: 1,
+};
 export default function Home() {
   return (
     <>
@@ -120,5 +123,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }

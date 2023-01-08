@@ -1,3 +1,3 @@
-import Foo from './Foo'
+import Foo from './Foo';
 
-export default Foo
+export default Foo;
