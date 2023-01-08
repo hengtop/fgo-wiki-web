@@ -1,0 +1,37 @@
+.input-wrapper {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+
+  .input {
+    width: 300px;
+    height: 30px;
+    padding: 0 5px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 15px;
+    outline: unset;
+  }
+
+  .option-wrapper {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+
+    button {
+      border: 0;
+      background-color: #ccc;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    .search-btn {
+      padding: 3px 5px;
+      border-radius: 2px;
+      font-size: 15px;
+      color: #333;
+      background-color: #f3f3f3;
+    }
+  }
+}

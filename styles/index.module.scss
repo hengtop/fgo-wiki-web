@@ -1,4 +1,49 @@
-.title {
-  color: #bfa;
-  font-size: 0;
+.header {
+  width: 100%;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  background-color: antiquewhite;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+
+  .main-nav {
+    width: 100%;
+    height: 350px;
+    background-color: #ccc;
+  }
+}
+
+.nav-container {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  padding: 10px 20px;
+  background-color: aqua;
+
+  .nav-item {
+    margin-right: 20px;
+  }
+}
+
+.search-container {
+  width: 100%;
+  height: auto;
+  background-color: #ccc;
+}
+
+.list-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .name {
+    width: 100px;
+    height: 100px;
+  }
 }
