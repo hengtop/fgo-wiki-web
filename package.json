@@ -9,6 +9,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "stylelint": "stylelint **/*.scss",
+    "stylelint:fix": "stylelint **/*.scss --fix",
     "prettier": "prettier --write .",
     "prepare": "husky install",
     "commit": "cz",
@@ -49,8 +50,8 @@
     "stylelint-scss": "^4.3.0"
   },
   "lint-staged": {
-    "**/*.scss": "yarn stylelint",
-    "**/*.{js,jsx,tsx,ts,json}": [
+    "**/*.scss": "yarn stylelint --fix",
+    "**/*.{js,jsx,tsx,ts}": [
       "yarn prettier",
       "yarn eslint",
       "git add ."

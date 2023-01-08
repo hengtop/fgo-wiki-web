@@ -41,7 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## 项目配置
 
-配置各种工作流
+### 配置各种工作流
 
 ### eslint 和 prettier
 
