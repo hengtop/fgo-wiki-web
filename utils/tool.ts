@@ -5,11 +5,11 @@ const initParams = {
   g: '11',
   u: '159c1ae3d73242797144dfe1a2ef9399',
   ip: '',
-  d: { cat: '78' },
+  d: {},
 };
 
 // 对参数进行md5加密
-export function jsonObject(params) {
+export function jsonObject(params: any) {
   const requestParams = {
     ...initParams,
     d: {
