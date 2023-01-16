@@ -19,6 +19,12 @@ const nextConfig = {
         port: '',
         pathname: '/media/fgo/servant/card/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'fgo-cdn.vgtime.com',
+        port: '',
+        pathname: '/media/fgo/equip/head/**',
+      },
     ],
   },
 };
