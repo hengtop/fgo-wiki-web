@@ -2,11 +2,13 @@ import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Head from 'next/head';
 
+import TdTemplate from '@/components/td-template';
+
 import styles from './index.module.scss';
 
-import Arts from '@/public/static/Arts.png';
-import Buster from '@/public/static/Buster.png';
-import Quick from '@/public/static/Quick.png';
+import Arts from '@/public/static/80px-Arts.png';
+import Buster from '@/public/static/80px-Buster.png';
+import Quick from '@/public/static/80px-Quick.png';
 
 import {
   getServentDetail,
@@ -22,7 +24,13 @@ function calcCardTypeNumber(
     .fill(0)
     .map((item: number | string, index: number) => {
       return (
-        <Image alt="" src={imageSrc} key={index + String(imageSrc) + ''} />
+        <Image
+          width={80}
+          height={80}
+          alt=""
+          src={imageSrc}
+          key={index + String(imageSrc) + ''}
+        />
       );
     });
 }
@@ -42,7 +50,39 @@ export default function Index({
       <div className={styles['main-info']}>
         <h2 className={styles['main-title']}>{detail?.name}</h2>
         <div className={styles['top-info']}>
-          <Image alt="" src={detail?.pic1} width={318.23} height={450} />
+          <div className={styles['left-box']}>
+            <Image alt="" src={detail?.pic1} width={318.23} height={478.33} />
+            <div className={styles['ability-indicator']}>
+              <table border={1} width="100%" align="center">
+                <tbody>
+                  <tr>
+                    <th colSpan={3}>数值面板</th>
+                  </tr>
+                  <tr>
+                    <th>筋力</th>
+                    <th>耐久</th>
+                    <th>敏捷</th>
+                  </tr>
+                  <tr>
+                    <td>{detail?.gluten}</td>
+                    <td>{detail?.durable}</td>
+                    <td>{detail?.agile}</td>
+                  </tr>
+                  <tr>
+                    <th>魔力</th>
+                    <th>幸运</th>
+                    <th>宝具</th>
+                  </tr>
+                  <tr>
+                    <td>{detail?.magic}</td>
+                    <td>{detail?.lucky}</td>
+                    <td>{detail?.treasure}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <div className={styles['base-info']}>
             <table border={1} width="100%" align="center">
               <tbody>
@@ -50,13 +90,18 @@ export default function Index({
                   <th colSpan={5}>{detail?.name}</th>
                 </tr>
                 <tr>
-                  <td colSpan={5}>{detail?.disp_name}</td>
+                  <th>中</th>
+                  <th>日</th>
+                  <th>英</th>
+                  <th>CV</th>
+                  <th>画师</th>
                 </tr>
-                <tr>
-                  <td colSpan={5}>{detail?.name_jp}</td>
-                </tr>
-                <tr>
-                  <td colSpan={5}>{detail?.name_en}</td>
+                <tr className={styles['h-80px']}>
+                  <td>{detail?.disp_name}</td>
+                  <td>{detail?.name_jp}</td>
+                  <td>{detail?.name_en}</td>
+                  <td>{detail?.cv}</td>
+                  <td>{detail?.illust}</td>
                 </tr>
                 <tr>
                   <th>性别</th>
@@ -65,12 +110,24 @@ export default function Index({
                   <th>阵营</th>
                   <th>属性</th>
                 </tr>
-                <tr>
+                <tr className={styles['h-80px']}>
                   <td>{detail?.gender}</td>
                   <td>{detail?.height}</td>
                   <td>{detail?.weight}</td>
                   <td>{detail?.camp}</td>
                   <td>{detail?.attributes}</td>
+                </tr>
+                <tr>
+                  <th>地域</th>
+                  <th>出处</th>
+                  <th>昵称</th>
+                  <th colSpan={2}>特性</th>
+                </tr>
+                <tr className={styles['h-80px']}>
+                  <td>{detail?.region}</td>
+                  <td>{detail?.origin}</td>
+                  <td>{detail?.aliases}</td>
+                  <td colSpan={2}>{detail?.property}</td>
                 </tr>
                 <tr>
                   <th colSpan={4}>Hit信息</th>
@@ -84,36 +141,82 @@ export default function Index({
                   <td rowSpan={2}>12</td>
                 </tr>
                 <tr>
-                  <td>3</td>
-                  <td>3</td>
-                  <td>3</td>
-                  <td>5</td>
+                  <td>{detail?.quihit}</td>
+                  <td>{detail?.arthit}</td>
+                  <td>{detail?.bushit}</td>
+                  <td>{detail?.exhit}</td>
                 </tr>
                 <tr>
-                  <th colSpan={4}>配卡信息</th>
-                  <th colSpan={4}>礼装</th>
+                  <th colSpan={3}>配卡信息</th>
+                  <th colSpan={2}>礼装</th>
                 </tr>
                 <tr>
-                  <td colSpan={4}>
+                  <td colSpan={3}>
                     {calcCardTypeNumber(detail?.card_quick, Quick)}
                     {calcCardTypeNumber(detail?.card_arts, Arts)}
                     {calcCardTypeNumber(detail?.card_buster, Buster)}
                   </td>
-                  <td>
+                  <td colSpan={2} className={styles['suit-td']}>
                     {suitList?.map((item: any) => (
                       <Image
                         key={item.id}
                         src={item?.icon_url}
                         alt=""
-                        width={40}
-                        height={40}
+                        width={80}
+                        height={80}
                       />
                     ))}
                   </td>
                 </tr>
+                <tr>
+                  <th colSpan={2}>出星率</th>
+                  <th colSpan={2}>即死补正</th>
+                  <th>集星权重</th>
+                </tr>
+                <tr>
+                  <td colSpan={2}>{detail?.crit}</td>
+                  <td colSpan={2}>{detail?.death}</td>
+                  <td>{detail?.critpr}</td>
+                </tr>
               </tbody>
             </table>
           </div>
+        </div>
+        <div className={styles['sec-info']}>
+          <table border={1} width="100%" align="center">
+            <tbody>
+              <tr>
+                <th colSpan={6}>NP获取率</th>
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={[
+                    'Arts',
+                    'Buster',
+                    'Quick',
+                    'Extra',
+                    '宝具',
+                    '防御(受击)',
+                  ]}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="td"
+                  originData={detail}
+                  values={[
+                    'tdpointa',
+                    'tdpointb',
+                    'tdpointq',
+                    'tdpointex',
+                    'initiativenp',
+                    'passive',
+                  ]}
+                />
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -130,7 +233,7 @@ export async function getStaticPaths() {
   const listId = res?.d?.list?.map((item) => ({ params: { id: item.id } }));
   return {
     paths: listId,
-    fallback: false, // can also be true or 'blocking'
+    fallback: 'blocking', // can also be true or 'blocking'
   };
 }
 
