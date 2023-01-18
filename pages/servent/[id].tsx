@@ -1,8 +1,12 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import TdTemplate from '@/components/td-template';
+const Radar = dynamic(() => import('@/components/radar'), {
+  ssr: false,
+});
 
 import styles from './index.module.scss';
 
@@ -80,6 +84,36 @@ export default function Index({
                   </tr>
                 </tbody>
               </table>
+              <div className={styles['ability-radar-chart']}>
+                <Radar
+                  originData={[
+                    {
+                      name: '筋力',
+                      value: detail?.gluten,
+                    },
+                    {
+                      name: '耐久',
+                      value: detail?.durable,
+                    },
+                    {
+                      name: '敏捷',
+                      value: detail?.agile,
+                    },
+                    {
+                      name: '魔力',
+                      value: detail?.gluten,
+                    },
+                    {
+                      name: '幸运',
+                      value: detail?.magic,
+                    },
+                    {
+                      name: '宝具',
+                      value: detail?.treasure,
+                    },
+                  ]}
+                />
+              </div>
             </div>
           </div>
 

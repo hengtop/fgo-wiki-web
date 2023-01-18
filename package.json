@@ -16,6 +16,7 @@
     "eslint": "eslint --fix ./**/*.{tsx,ts,js,jsx}"
   },
   "dependencies": {
+    "@ant-design/plots": "^1.2.4",
     "@next/font": "13.1.1",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
