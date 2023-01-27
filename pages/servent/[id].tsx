@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -248,6 +248,183 @@ export default function Index({
                     'passive',
                   ]}
                 />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={[
+                    {
+                      value: 'HP',
+                      colSpan: 6,
+                    },
+                  ]}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={[
+                    '等级',
+                    '初始',
+                    '最终',
+                    'Lv.80',
+                    'Lv.90',
+                    'Lv.100',
+                  ]}
+                />
+              </tr>
+              <tr>
+                <th></th>
+                <TdTemplate
+                  tType="td"
+                  originData={detail}
+                  values={[
+                    'lv1_hp',
+                    'lvmax4_hp',
+                    'lv80_hp',
+                    'lv90_hp',
+                    'lv100_hp',
+                  ]}
+                />
+              </tr>
+
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={[
+                    {
+                      value: 'ATK',
+                      colSpan: 6,
+                    },
+                  ]}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={[
+                    '等级',
+                    '初始',
+                    '最终',
+                    'Lv.80',
+                    'Lv.90',
+                    'Lv.100',
+                  ]}
+                />
+              </tr>
+              <tr>
+                <th></th>
+                <TdTemplate
+                  tType="td"
+                  originData={detail}
+                  values={[
+                    'lv1_atk',
+                    'lvmax4_atk',
+                    'lv80_atk',
+                    'lv90_atk',
+                    'lv100_atk',
+                  ]}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={[
+                    {
+                      value: '羁绊点数',
+                      colSpan: 6,
+                    },
+                  ]}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={['等级', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']}
+                />
+              </tr>
+              <tr>
+                <th>点数</th>
+                <TdTemplate
+                  tType="td"
+                  originData={detail}
+                  values={['jb_lv1', 'jb_lv2', 'jb_lv3', 'jb_lv4', 'jb_lv5']}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={['', 'Lv.6', 'Lv.7', 'Lv.8', 'Lv.9', 'Lv.10']}
+                />
+              </tr>
+              <tr>
+                <th></th>
+                <TdTemplate
+                  tType="td"
+                  originData={detail}
+                  values={['jb_lv6', 'jb_lv7', 'jb_lv8', 'jb_lv9', 'jb_lv10']}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={['', 'Lv.11', 'Lv.12', 'Lv.13', 'Lv.14', 'Lv.15']}
+                />
+              </tr>
+              <tr>
+                <th></th>
+                <TdTemplate
+                  tType="td"
+                  originData={detail}
+                  values={[
+                    'jb_lv11',
+                    'jb_lv12',
+                    'jb_lv13',
+                    'jb_lv14',
+                    'jb_lv15',
+                  ]}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={[
+                    {
+                      value: '羁绊奖励',
+                      colSpan: 6,
+                    },
+                  ]}
+                />
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={['等级', 'Lv.6', 'Lv.7', 'Lv.8', 'Lv.9', 'Lv.10']}
+                />
+              </tr>
+              <tr>
+                <th>奖励</th>
+                {detail?.jb_pri
+                  ?.split('|')
+                  ?.slice(0, 5)
+                  ?.map((item: string, index: number) => (
+                    <td key={index}>{item}</td>
+                  ))}
+              </tr>
+              <tr>
+                <TdTemplate
+                  tType="th"
+                  titleList={['', 'Lv.11', 'Lv.12', 'Lv.13', 'Lv.14', 'Lv.15']}
+                />
+              </tr>
+              <tr>
+                <th></th>
+                {detail?.jb_pri
+                  ?.split('|')
+                  ?.slice(5)
+                  ?.map((item: string, index: number) => (
+                    <td key={index}>{item}</td>
+                  ))}
               </tr>
             </tbody>
           </table>
