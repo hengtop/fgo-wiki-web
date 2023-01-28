@@ -14,6 +14,12 @@ import styles from '../styles/index.module.scss';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Index({ list }: { list: any }) {
+  const [nextList, setNextList] = useState<typeof list>([]);
+  const [pageParams, setPageParams] = useState({
+    pn: 2,
+    ps: 72,
+  });
+  const [isLoadingOver, setIsLoadingOver] = useState(false);
   const [navList] = useState([
     {
       name: '从者图鉴',
@@ -26,17 +32,32 @@ export default function Index({ list }: { list: any }) {
     console.log(params);
   }, []);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  async function fetchData(params: {
+    pn: number | string;
+    ps: number | string;
+  }) {
+    const [, res] = await getServentList(params, {
+      proxy: true,
+    });
+    const newNextList = res?.d.list ?? [];
+    if (newNextList.length < 72) {
+      setIsLoadingOver(true);
+    }
+    console.log(newNextList);
+    // 凭借再去重
+    setNextList(nextList.concat(newNextList));
+  }
 
-  // async function fetchData() {
-  //   const res = await getServentList({
-  //     pn: '1',
-  //     action: 'list',
-  //     ps: '72',
-  //   });
-  // }
+  function getNextServentList() {
+    if (isLoadingOver) return;
+    const newPageParams = {
+      pn: pageParams.pn + 1,
+      ps: pageParams.ps,
+    };
+    fetchData(newPageParams);
+    // 保存分页数据
+    setPageParams(newPageParams);
+  }
   return (
     <>
       <Head>
@@ -61,7 +82,11 @@ export default function Index({ list }: { list: any }) {
           <div className={styles['list-container']}>
             {list?.map((item: any, index: any) => {
               return (
-                <Link key={item.id} href={`/servent/${item.id}`}>
+                <Link
+                  key={item.id}
+                  target="_blank"
+                  href={`/servent/${item.id}`}
+                >
                   <div className={styles['list-item']}>
                     <Image
                       alt="icon"
@@ -69,17 +94,43 @@ export default function Index({ list }: { list: any }) {
                       height={100}
                       src={item.icon_url}
                     />
-                    <div className={styles.name}>{item.name}</div>
+                    <div className={styles.name}>
+                      {item.name.replace('&amp;', '&')}
+                    </div>
                   </div>
                 </Link>
               );
             })}
+            {nextList?.map((item: any, index: any) => {
+              return (
+                <Link
+                  key={item.id}
+                  target="_blank"
+                  href={`/servent/${item.id}`}
+                >
+                  <div className={styles['list-item']}>
+                    <Image
+                      alt="icon"
+                      width={100}
+                      height={100}
+                      src={item.icon_url}
+                    />
+                    <div className={styles.name}>
+                      {item.name.replace('&amp;', '&')}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+
             {new Array(10).fill(0).map((item, index) => {
               return (
                 <div className={classnames(styles.layout)} key={index}></div>
               );
             })}
           </div>
+          <button onClick={getNextServentList}>加载下一页</button>
+          {isLoadingOver && '你已经到达了人理的尽头'}
         </article>
       </main>
     </>

@@ -27,6 +27,16 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: '/api',
+          destination: `http://fgo-service.vgtime.com`,
+        },
+      ],
+    };
+  },
 };
 
 module.exports = nextConfig;

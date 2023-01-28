@@ -4,74 +4,94 @@ import { jsonObject, promiseFormatter } from '@/utils';
 
 type IServentListItem = Record<string, string>;
 
-export const getServentList = (params: any) => {
+interface IRequestOption {
+  /**
+   * 是否开启代理
+   */
+  proxy: boolean;
+}
+
+// 公共部分
+function nativeRequest<T, R>(params: T, option?: IRequestOption) {
   return promiseFormatter(
-    httpRequest.request<{
+    httpRequest.request<R>({
+      url: `${option?.proxy ? 'http://localhost:3000/api' : ''}/topic/codex`,
+      method: 'POST',
+      showLoading: false,
+      showResponseMessage: false,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      params,
+    })
+  );
+}
+
+/**
+ * 获取从者列表
+ */
+export const getServentList = (params: any, option?: IRequestOption) => {
+  return nativeRequest<
+    any,
+    {
       d: {
         list: IServentListItem[];
       };
-    }>({
-      url: '/topic/codex',
-      method: 'POST',
-      showLoading: false,
-      showResponseMessage: false,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      params: {
-        json: jsonObject({
-          action: 'list',
-          cat: '78',
-          ...params,
-        }),
-      },
-    })
+    }
+  >(
+    {
+      json: jsonObject({
+        action: 'list',
+        cat: '78',
+        ...params,
+      }),
+    },
+    option
   );
 };
 
-export const getServentDetail = (params: any) => {
-  return promiseFormatter(
-    httpRequest.request<{
+/**
+ * 获取从者详情
+ */
+export const getServentDetail = (params: any, option?: IRequestOption) => {
+  return nativeRequest<
+    any,
+    {
       d: {
         list: any[];
       };
-    }>({
-      url: '/topic/codex',
-      method: 'POST',
-      showLoading: false,
-      showResponseMessage: false,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      params: {
-        json: jsonObject({ action: 'detail', ...params }),
-      },
-    })
+    }
+  >(
+    {
+      json: jsonObject({ action: 'detail', ...params }),
+    },
+    option
   );
 };
 
-export const getServentSuit = (params: { val: string }) => {
-  return promiseFormatter(
-    httpRequest.request<{
+/**
+ * 获取礼装详情
+ */
+export const getServentSuit = (
+  params: { val: string },
+  option?: IRequestOption
+) => {
+  return nativeRequest<
+    any,
+    {
       d: {
         list: any[];
       };
-    }>({
-      url: '/topic/codex',
-      method: 'POST',
-      showLoading: false,
-      showResponseMessage: false,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      params: {
-        json: jsonObject({
-          field: 'EQUIPID',
-          action: 'detail',
-          cat: '79',
-          ...params,
-        }),
-      },
-    })
+    }
+  >(
+    {
+      json: jsonObject({
+        field: 'EQUIPID',
+        action: 'detail',
+        cat: '79',
+        ...params,
+      }),
+    },
+    option
   );
 };

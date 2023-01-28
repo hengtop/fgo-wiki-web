@@ -191,15 +191,18 @@ export default function Index({
                     {calcCardTypeNumber(detail?.card_buster, Buster)}
                   </td>
                   <td colSpan={2} className={styles['suit-td']}>
-                    {suitList?.map((item: any) => (
-                      <Image
-                        key={item.id}
-                        src={item?.icon_url}
-                        alt=""
-                        width={80}
-                        height={80}
-                      />
-                    ))}
+                    {suitList?.map(
+                      (item: any) =>
+                        item?.id && (
+                          <Image
+                            key={item?.id}
+                            src={item?.icon_url}
+                            alt=""
+                            width={80}
+                            height={80}
+                          />
+                        )
+                    )}
                   </td>
                 </tr>
                 <tr>
