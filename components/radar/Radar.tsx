@@ -27,10 +27,14 @@ function valueToRank(value: number) {
 }
 
 function rankTovalue(rankStr: string) {
-  const arr = rankStr.match(/\+/g);
+  const arr = rankStr.match(/\+|\-/g);
   if (arr) {
-    const baseRank = rankStr.replace(/\+/g, '');
-    return rank[baseRank] + arr.length;
+    const baseRank = rankStr.replace(/\+|\-/g, '');
+    if (arr.includes('-')) {
+      return rank[baseRank] - arr.length;
+    } else {
+      return rank[baseRank] + arr.length;
+    }
   }
   return rank[rankStr];
 }

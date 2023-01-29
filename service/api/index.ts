@@ -95,3 +95,13 @@ export const getServentSuit = (
     option
   );
 };
+
+// 获取活动信息
+export const getActiveInfo = () => {
+  return promiseFormatter(
+    httpRequest.request({
+      url: 'http://localhost:3000/active',
+      method: 'GET',
+    })
+  );
+};

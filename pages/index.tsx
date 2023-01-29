@@ -5,11 +5,12 @@ import Head from 'next/head';
 import { Inter } from '@next/font/google';
 import classnames from 'classnames';
 
-import { getServentList } from '@/service/api';
+import { getActiveInfo, getServentList } from '@/service/api';
 
 import SearchInput from '@/components/search-input';
 
 import styles from '../styles/index.module.scss';
+import Loading from '@/components/loading';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,9 +18,10 @@ export default function Index({ list }: { list: any }) {
   const [nextList, setNextList] = useState<typeof list>([]);
   const [pageParams, setPageParams] = useState({
     pn: 2,
-    ps: 72,
+    ps: 70,
   });
   const [isLoadingOver, setIsLoadingOver] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [navList] = useState([
     {
       name: '从者图鉴',
@@ -28,6 +30,12 @@ export default function Index({ list }: { list: any }) {
       name: '礼装图鉴',
     },
   ]);
+  const [activeInfo, setActiveInfo] = useState({});
+
+  useEffect(() => {
+    fetchActiveData();
+  }, []);
+
   const handleSearch = useCallback((params: any) => {
     console.log(params);
   }, []);
@@ -36,16 +44,18 @@ export default function Index({ list }: { list: any }) {
     pn: number | string;
     ps: number | string;
   }) {
+    setIsLoading(true);
     const [, res] = await getServentList(params, {
       proxy: true,
     });
     const newNextList = res?.d.list ?? [];
-    if (newNextList.length < 72) {
+    if (newNextList.length < 70) {
       setIsLoadingOver(true);
     }
     console.log(newNextList);
     // 凭借再去重
     setNextList(nextList.concat(newNextList));
+    setIsLoading(false);
   }
 
   function getNextServentList() {
@@ -58,6 +68,16 @@ export default function Index({ list }: { list: any }) {
     // 保存分页数据
     setPageParams(newPageParams);
   }
+
+  // 获取页面头图信息
+  async function fetchActiveData() {
+    const [err, res] = await getActiveInfo();
+    const imgCon = res.match(/<div id="container">([\s\S]*?)<\/div>/g)[0];
+    const imgs = imgCon.match(/(?<=(img[^>]*src="))[^"]*/g);
+    setActiveInfo({
+      headImages: imgs,
+    });
+  }
   return (
     <>
       <Head>
@@ -65,7 +85,9 @@ export default function Index({ list }: { list: any }) {
       </Head>
       <header className={styles.header}>头部</header>
       <main className={styles.container}>
-        <nav className={styles['main-nav']}>这是活动位</nav>
+        <nav className={styles['main-nav']}>
+          <img src={activeInfo?.headImages?.[0]}></img>
+        </nav>
         <article>
           <div className={styles['nav-container']}>
             {navList.map((item, index) => {
@@ -129,8 +151,19 @@ export default function Index({ list }: { list: any }) {
               );
             })}
           </div>
-          <button onClick={getNextServentList}>加载下一页</button>
-          {isLoadingOver && '你已经到达了人理的尽头'}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <div className={styles['loading-btn']}>
+              {!isLoadingOver ? (
+                <button onClick={getNextServentList}>加载更多</button>
+              ) : (
+                <span className={styles['loading-end-title']}>
+                  你已经到达了人理的尽头
+                </span>
+              )}
+            </div>
+          )}
         </article>
       </main>
     </>
@@ -140,7 +173,7 @@ export default function Index({ list }: { list: any }) {
 export async function getServerSideProps(context: any) {
   const [, res] = await getServentList({
     pn: '1',
-    ps: '72',
+    ps: '70',
   });
   return {
     props: {

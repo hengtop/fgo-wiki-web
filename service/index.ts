@@ -1,7 +1,7 @@
 import { HttpRequest } from 'heng-request';
 
 const httpRequest = new HttpRequest({
-  baseURL: 'http://fgo-service.vgtime.com/',
+  baseURL: 'http://fgo-service.vgtime.com',
   timeout: 5000,
   cancleRequests: [],
   handleCallback: {

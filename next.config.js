@@ -31,8 +31,12 @@ const nextConfig = {
     return {
       fallback: [
         {
-          source: '/api',
-          destination: `http://fgo-service.vgtime.com`,
+          source: '/api/:path*',
+          destination: `http://fgo-service.vgtime.com/:path*`,
+        },
+        {
+          source: '/active',
+          destination: 'https://fgo.wiki/w/%E9%A6%96%E9%A1%B5',
         },
       ],
     };

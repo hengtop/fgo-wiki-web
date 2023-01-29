@@ -55,8 +55,19 @@ stylelint 配置 我这里使用的 sass
 https://stylelint.io/user-guide/get-started
 https://beta.nextjs.org/docs/styling/sass
 
-## 坑
+## 一些问题
 
 next 自带的 lint 和 lint-staged 一起使用貌似有 bug
 会一直报如下错误  
 ![image-20230108033427534](https://zhanghengtuchaung.oss-cn-chengdu.aliyuncs.com/img/image-20230108033427534.png)
+
+## next 反向代理
+
+直接在配置文件中配置 rewrites
+
+## 计划
+
+- 优化类型（补充类型定义）和函数（useCallback）
+- 总结 next 的三种渲染方式
+- 设置静态页面自动更新时间
+- 添加礼装查询图鉴
