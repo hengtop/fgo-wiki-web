@@ -86,7 +86,7 @@ export default function Index({ list }: { list: any }) {
       <header className={styles.header}>头部</header>
       <main className={styles.container}>
         <nav className={styles['main-nav']}>
-          <img src={activeInfo?.headImages?.[0]}></img>
+          <img alt="" src={activeInfo?.headImages?.[0]}></img>
         </nav>
         <article>
           <div className={styles['nav-container']}>
