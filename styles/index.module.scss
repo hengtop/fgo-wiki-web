@@ -10,12 +10,11 @@
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  background-image: url('https://static.biligame.com/fgo/gw/pc/img/index/bot-bg.png?dae46090');
 
   .main-nav {
-    width: 100%;
-    height: 350px;
-    background-color: #ccc;
+    margin: 20px auto;
+    width: 800px;
+    height: 300px;
   }
 
   .loading-btn {
@@ -29,7 +28,7 @@
       border: 1px solid rgb(0 0 0 / 20%);
       border-bottom-color: rgb(0 0 0 / 30%);
       background-origin: border-box;
-      background-image: linear-gradient(top, #fff, #eee);
+      background-image: linear-gradient(to top, #fff, #eee);
       background-image: linear-gradient(to bottom, #fff, #eee);
       border-radius: 4px;
       text-shadow: 0 1px 0 #fff;
@@ -73,6 +72,7 @@
   flex-wrap: wrap;
   margin-top: 20px;
   padding: 0 20px;
+  background-image: url('https://static.biligame.com/fgo/gw/pc/img/index/bot-bg.png?dae46090');
 
   .list-item {
     padding: 0 5px;

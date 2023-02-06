@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import TdTemplate from '@/components/td-template';
+import Swiper from '@/components/swiper';
 const Radar = dynamic(() => import('@/components/radar'), {
   ssr: false,
 });
@@ -55,7 +56,16 @@ export default function Index({
         <h2 className={styles['main-title']}>{detail?.name}</h2>
         <div className={styles['top-info']}>
           <div className={styles['left-box']}>
-            <Image alt="" src={detail?.pic1} width={318.23} height={478.33} />
+            <Swiper
+              dataList={[
+                detail?.pic1,
+                detail?.pic2,
+                detail?.pic3,
+                detail?.pic4,
+              ]}
+              width={318.23}
+              height={478.33}
+            />
             <div className={styles['ability-indicator']}>
               <table border={1} width="100%" align="center">
                 <tbody>

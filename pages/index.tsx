@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import { getActiveInfo, getServentList } from '@/service/api';
 
 import SearchInput from '@/components/search-input';
+import Swiper from '@/components/swiper';
 
 import styles from '../styles/index.module.scss';
 import Loading from '@/components/loading';
@@ -30,7 +31,7 @@ export default function Index({ list }: { list: any }) {
       name: '礼装图鉴',
     },
   ]);
-  const [activeInfo, setActiveInfo] = useState({});
+  const [activeInfo, setActiveInfo] = useState<Record<string, any>>();
 
   useEffect(() => {
     fetchActiveData();
@@ -72,10 +73,10 @@ export default function Index({ list }: { list: any }) {
   // 获取页面头图信息
   async function fetchActiveData() {
     const [err, res] = await getActiveInfo();
-    const imgCon = res.match(/<div id="container">([\s\S]*?)<\/div>/g)[0];
-    const imgs = imgCon.match(/(?<=(img[^>]*src="))[^"]*/g);
+    const imgCon = res?.match(/<div id="container">([\s\S]*?)<\/div>/g)[0];
+    const imgs = imgCon?.match(/(?<=(img[^>]*src="))[^"]*/g);
     setActiveInfo({
-      headImages: imgs,
+      headImages: imgs.map((item: string) => 'https:' + item),
     });
   }
   return (
@@ -86,7 +87,7 @@ export default function Index({ list }: { list: any }) {
       <header className={styles.header}>头部</header>
       <main className={styles.container}>
         <nav className={styles['main-nav']}>
-          <img alt="" src={activeInfo?.headImages?.[0]}></img>
+          <Swiper width={800} height={300} dataList={activeInfo?.headImages} />
         </nav>
         <article>
           <div className={styles['nav-container']}>

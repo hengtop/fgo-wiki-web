@@ -25,6 +25,12 @@ const nextConfig = {
         port: '',
         pathname: '/media/fgo/equip/head/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'fgo.wiki',
+        port: '',
+        pathname: '/images/**',
+      },
     ],
   },
   async rewrites() {
