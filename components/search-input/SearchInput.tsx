@@ -69,7 +69,7 @@ export default function SearchInput(props: ISearchInputProps) {
         <button id="search-submit" className={styles['search-btn']}>
           搜索
         </button>
-        <button id="po-search" className={styles['search-btn']}>
+        {/* <button id="po-search" className={styles['search-btn']}>
           正序
         </button>
         <button id="in-search" className={styles['search-btn']}>
@@ -77,7 +77,7 @@ export default function SearchInput(props: ISearchInputProps) {
         </button>
         <button id="ad-search" className={styles['search-btn']}>
           高级筛选
-        </button>
+        </button> */}
       </div>
     </div>
   );
