@@ -1,8 +1,15 @@
+import type {
+  IGetServentDetailRequestType,
+  IGetServentDetailResponseType,
+  IGetServentListResponseType,
+  IGetServentListRequestType,
+  IGetServentSuitResponseType,
+  IGetServentSuitRequestType,
+} from '../types';
+
 import httpRequest from '..';
 
 import { jsonObject, promiseFormatter } from '@/utils';
-
-type IServentListItem = Record<string, string>;
 
 interface IRequestOption {
   /**
@@ -30,15 +37,11 @@ function nativeRequest<T, R>(params: T, option?: IRequestOption) {
 /**
  * 获取从者列表
  */
-export const getServentList = (params: any, option?: IRequestOption) => {
-  return nativeRequest<
-    any,
-    {
-      d: {
-        list: IServentListItem[];
-      };
-    }
-  >(
+export const getServentList = (
+  params: IGetServentListRequestType,
+  option?: IRequestOption
+) => {
+  return nativeRequest<any, IGetServentListResponseType>(
     {
       json: jsonObject({
         action: 'list',
@@ -53,15 +56,11 @@ export const getServentList = (params: any, option?: IRequestOption) => {
 /**
  * 获取从者详情
  */
-export const getServentDetail = (params: any, option?: IRequestOption) => {
-  return nativeRequest<
-    any,
-    {
-      d: {
-        list: any[];
-      };
-    }
-  >(
+export const getServentDetail = (
+  params: IGetServentDetailRequestType,
+  option?: IRequestOption
+) => {
+  return nativeRequest<any, IGetServentDetailResponseType>(
     {
       json: jsonObject({ action: 'detail', ...params }),
     },
@@ -73,17 +72,10 @@ export const getServentDetail = (params: any, option?: IRequestOption) => {
  * 获取礼装详情
  */
 export const getServentSuit = (
-  params: { val: string },
+  params: IGetServentSuitRequestType,
   option?: IRequestOption
 ) => {
-  return nativeRequest<
-    any,
-    {
-      d: {
-        list: any[];
-      };
-    }
-  >(
+  return nativeRequest<any, IGetServentSuitResponseType>(
     {
       json: jsonObject({
         field: 'EQUIPID',
@@ -99,7 +91,7 @@ export const getServentSuit = (
 // 获取活动信息
 export const getActiveInfo = () => {
   return promiseFormatter(
-    httpRequest.request({
+    httpRequest.request<string>({
       url: 'http://localhost:3000/active',
       method: 'GET',
     })

@@ -1,3 +1,4 @@
+import type { ServentSuitDetailData, ServentDetailType } from '@/service/types';
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import dynamic from 'next/dynamic';
@@ -40,13 +41,12 @@ function calcCardTypeNumber(
     });
 }
 
-export default function Index({
-  detail,
-  suitList,
-}: {
-  detail: any;
-  suitList: any;
-}) {
+interface IPropsType {
+  detail: ServentDetailType;
+  suitList: ServentSuitDetailData[];
+}
+
+export default function Index({ detail, suitList }: IPropsType) {
   return (
     <div className={styles.container}>
       <Head>
@@ -202,7 +202,7 @@ export default function Index({
                   </td>
                   <td colSpan={2} className={styles['suit-td']}>
                     {suitList?.map(
-                      (item: any) =>
+                      (item: ServentSuitDetailData) =>
                         item?.id && (
                           <Image
                             key={item?.id}
@@ -468,18 +468,17 @@ export async function getStaticProps(context: any) {
     params: { id },
   } = context;
   const [, res] = await getServentDetail({ id });
-  const {
-    d: { data: detail },
-  } = res as any;
+  const detail = res?.d.data;
 
   // 获取从者礼装
-  const suitIds = detail.equips?.split('|').filter((item: string) => item);
+  const suitIds =
+    detail?.equips?.split('|').filter((item: string) => item) || [];
   const suitData = await Promise.all(
     suitIds.map((item: string) => getServentSuit({ val: item }))
   );
-  const suitList = suitData.map((item: any) => {
+  const suitList = suitData.map((item) => {
     const [, res] = item;
-    return res.d.data;
+    return res?.d.data;
   });
 
   return {

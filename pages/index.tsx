@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import type { ServentList } from '@/service/types';
+
+import { useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
-import { Inter } from '@next/font/google';
 import classnames from 'classnames';
 
 import { getActiveInfo, getServentList } from '@/service/api';
@@ -13,9 +14,14 @@ import Swiper from '@/components/swiper';
 import styles from '../styles/index.module.scss';
 import Loading from '@/components/loading';
 
-const inter = Inter({ subsets: ['latin'] });
+interface IPropsType {
+  list: ServentList[];
+  activeInfo: {
+    headImages: string[];
+  };
+}
 
-export default function Index({ list }: { list: any }) {
+export default function Index({ list, activeInfo }: IPropsType) {
   const [nextList, setNextList] = useState<typeof list>([]);
   const [pageParams, setPageParams] = useState({
     pn: 2,
@@ -33,11 +39,6 @@ export default function Index({ list }: { list: any }) {
       name: '礼装图鉴',
     },
   ]);
-  const [activeInfo, setActiveInfo] = useState<Record<string, any>>();
-
-  useEffect(() => {
-    fetchActiveData();
-  }, []);
 
   const fetchData = useCallback(
     async function fetchData(
@@ -81,7 +82,7 @@ export default function Index({ list }: { list: any }) {
   }
   //搜索
   const handleSearch = useCallback(
-    async (params: any) => {
+    async (params: { value?: string }) => {
       const { value: wd = '' } = params;
       setIsSearchLoading(true);
       setPageParams({
@@ -99,18 +100,9 @@ export default function Index({ list }: { list: any }) {
           );
       setIsSearchLoading(false);
     },
-    [fetchData, pageParams]
+    [fetchData]
   );
 
-  // 获取页面头图信息
-  async function fetchActiveData() {
-    const [err, res] = await getActiveInfo();
-    const imgCon = res?.match(/<div id="container">([\s\S]*?)<\/div>/g)[0];
-    const imgs = imgCon?.match(/(?<=(img[^>]*src="))[^"]*/g);
-    setActiveInfo({
-      headImages: imgs.map((item: string) => 'https:' + item),
-    });
-  }
   return (
     <>
       <Head>
@@ -136,7 +128,7 @@ export default function Index({ list }: { list: any }) {
           </div>
           <div className={styles['list-container']}>
             {showBaseList &&
-              list?.map((item: any, index: any) => {
+              list?.map((item: ServentList) => {
                 return (
                   <Link
                     key={item.id}
@@ -162,7 +154,7 @@ export default function Index({ list }: { list: any }) {
                 <Loading />
               </div>
             ) : (
-              nextList?.map((item: any, index: any) => {
+              nextList?.map((item: ServentList) => {
                 return (
                   <Link
                     key={item.id}
@@ -210,14 +202,23 @@ export default function Index({ list }: { list: any }) {
   );
 }
 
-export async function getServerSideProps(context: any) {
-  const [, res] = await getServentList({
-    pn: '1',
-    ps: '70',
-  });
+export async function getServerSideProps() {
+  const [[, resList], [, resImgs]] = await Promise.all([
+    getServentList({
+      pn: '1',
+      ps: '70',
+    }),
+    getActiveInfo(),
+  ]);
+
+  const imgCon = resImgs?.match(/<div id="container">([\s\S]*?)<\/div>/g)?.[0];
+  const imgs = imgCon?.match(/(?<=(img[^>]*src="))[^"]*/g);
   return {
     props: {
-      list: res?.d.list,
+      list: resList?.d.list,
+      activeInfo: {
+        headImages: imgs?.map((item: string) => 'https:' + item),
+      },
     },
   };
 }

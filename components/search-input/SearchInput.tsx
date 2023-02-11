@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 
 interface ISearchInputProps {
   placeholder?: string;
-  onSearch: (e: unknown) => void;
+  onSearch: (params: { value?: string }) => void;
 }
 
 export default function SearchInput(props: ISearchInputProps) {
