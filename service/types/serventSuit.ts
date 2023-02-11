@@ -68,7 +68,7 @@ type D = {
   ps: string;
   pc: string;
   tc: string;
-  data: Data;
+  data: ServentSuitDetailData;
   list: undefined[];
 };
 
