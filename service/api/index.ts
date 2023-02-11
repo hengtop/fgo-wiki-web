@@ -92,7 +92,7 @@ export const getServentSuit = (
 export const getActiveInfo = () => {
   return promiseFormatter(
     httpRequest.request<string>({
-      url: 'http://localhost:3000/active',
+      url: 'https://fgo.wiki/w/%E9%A6%96%E9%A1%B5',
       method: 'GET',
     })
   );
