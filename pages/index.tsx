@@ -52,7 +52,7 @@ export default function Index({ list, activeInfo }: IPropsType) {
       const { isSearchMore = true } = option || {};
       setShowBaseList(isSearchMore);
       const [, res] = await getServentList(params, {
-        proxy: true,
+        prodProxy: true,
       });
       const newNextList = res?.d.list ?? [];
       if (newNextList.length < 70) {
@@ -183,19 +183,21 @@ export default function Index({ list, activeInfo }: IPropsType) {
               );
             })}
           </div>
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <div className={styles['loading-btn']}>
-              {!isLoadingOver ? (
-                <button onClick={getNextServentList}>加载更多</button>
-              ) : (
-                <span className={styles['loading-end-title']}>
-                  你已经到达了人理的尽头
-                </span>
-              )}
-            </div>
-          )}
+          <div className={styles['loading-wrapper']}>
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <div className={styles['loading-btn']}>
+                {!isLoadingOver ? (
+                  <button onClick={getNextServentList}>加载更多</button>
+                ) : (
+                  <span className={styles['loading-end-title']}>
+                    你已经到达了人理的尽头
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
         </article>
       </main>
     </>
